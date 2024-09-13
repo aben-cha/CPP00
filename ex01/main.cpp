@@ -6,26 +6,14 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:18:51 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/13 21:55:32 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/14 00:10:09 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "PhoneBook.hpp"
+#include "Contact.hpp"
 #include <string>
-
-class Contact {
-    public:
-        std::string firstName;
-        std::string lastName;
-        std::string nickname;
-        std::string phoneNumber;
-        std::string darkestSecret;
-};
-
-class PhoneBook {
-    public:
-        Contact contact[8];
-};
+#include <iostream>
 
 void enterCommand(std::string& str)
 {
@@ -37,38 +25,43 @@ void enterCommand(std::string& str)
 
 void enterFields(Contact& contact)
 {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "First Name     : ";
-    std::cin >> contact.firstName;
+    getline(std::cin, contact.firstName);
     std::cout << "Last Name      : ";
-    std::cin >> contact.lastName;
+    getline(std::cin, contact.lastName);
     std::cout << "Nickname       : ";
-    std::cin >> contact.nickname;
+    getline(std::cin, contact.nickname);
     std::cout << "Phone Number   : ";
-    std::cin >> contact.phoneNumber;
+    getline(std::cin, contact.phoneNumber);
     std::cout << "Darkest Secret : ";
-    std::cin >> contact.darkestSecret;
+    getline(std::cin, contact.darkestSecret);
 }
 
-void saveContact(PhoneBook& phoneBook, Contact contact)
+// void saveContact(PhoneBook& phoneBook, Contact contact)
+// {
+//     phoneBook.contact[0] = contact;
+// }
+
+void printFields(Contact contact)
 {
-    phoneBook.contact[0] = contact;
+    std::cout << "name   : " << contact.firstName << std::endl 
+              << "last   : " << contact.lastName << std::endl
+              << "nick   : " << contact.nickname << std::endl
+              << "phone  : " << contact.phoneNumber << std::endl
+              << "secret : " << contact.darkestSecret << std::endl;
 }
-
 
 int main()
 {
     std::string str;
-    Contact     contact;
-    PhoneBook   phoneBook;
-
+    Contact contact;
+    
     enterCommand(str);
     enterFields(contact);
-    saveContact(phoneBook, contact);
-    std::cout << "name   : " << phoneBook.contact[0].firstName << std::endl;
-    std::cout << "last   : " << phoneBook.contact[0].lastName << std::endl;
-    std::cout << "nick   : " << phoneBook.contact[0].nickname << std::endl;
-    std::cout << "phone  : " << phoneBook.contact[0].phoneNumber << std::endl;
-    std::cout << "secret : " << phoneBook.contact[0].darkestSecret << std::endl;
+    printFields(contact);
+    // saveContact(phoneBook, contact);
+    
     // while (1)
     // {
     //     if (str.compare("ADD") == 0)
