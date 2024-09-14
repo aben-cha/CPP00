@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:15:55 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/14 00:05:52 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/14 23:37:07 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 
 Contact::Contact(std::string firstname, 
                 std::string lastname, 
-                std::string nickname, 
+                std::string nickName, 
                 std::string phonenumber, 
                 std::string darkestsecret) :
                 firstName(firstname), 
                 lastName(lastname),
-                nickname(nickname),
+                nickName(nickName),
                 phoneNumber(phonenumber),
                 darkestSecret(darkestsecret)
                           
 {
 }
 
-Contact::Contact(void) {}
+Contact::Contact(){
+    // std::cout << "Constructor Contact." << std::endl;
+}
+
+Contact::~Contact() {
+    static int k = 0;
+    // std::cout << "Destructor Contact." << k++ <<std::endl;
+}
