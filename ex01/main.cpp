@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:18:51 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/14 23:51:46 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/15 00:33:55 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,15 @@ void saveContact(PhoneBook& phonebook, Contact& contact)
     std::cout << "User added successfully." << std::endl;
 }
 
-void printFields(Contact contact)
+void displayContacts(PhoneBook& phonebook)
 {
-    std::cout << "name   : " << contact.firstName << std::endl 
-              << "last   : " << contact.lastName << std::endl
-              << "nick   : " << contact.nickName << std::endl
-              << "phone  : " << contact.phoneNumber << std::endl
-              << "secret : " << contact.darkestSecret << std::endl;
+    while (phonebook.contactCount--)
+    {
+        std::cout << phonebook.contactCount << "          |          "
+        << phonebook.contact[phonebook.contactCount].firstName << "          |          "
+        << phonebook.contact[phonebook.contactCount].lastName << "          |          "
+        << phonebook.contact[phonebook.contactCount].nickName << std::endl;
+    } 
 }
 
 
@@ -133,44 +135,13 @@ int main()
         }
         else if (str.compare("SEARCH") == 0)
         {
-            enterFields(phonebook.contact[phonebook.contactCount], 1,index);
+            displayContacts(phonebook);
+            enterFields(phonebook.contact[phonebook.contactCount], 1, index);
             searchContact(phonebook, phonebook.contact[phonebook.contactCount], index);
         }
         else if (str.compare("EXIT") == 0)
             break ;
-        // if (phonebook.contactCount == 2)
-        //     break ;
         enterCommand(str);
     }
-    while (phonebook.contactCount--)
-    {
-        std::cout << "contactCount : " << phonebook.contactCount << std::endl;
-        printFields(phonebook.contact[phonebook.contactCount]);
-        std::cout << std::endl << std::endl;
-    }
-    // while (1)
-    // {
-    //     if (str.compare("ADD") == 0)
-    //     {
-    //         std::cout << "first name : " << std::endl;
-    //         break;
-    //     }
-    //     else if (str.compare("SEARCH") == 0)
-    //     {
-    //         std::cout << "display a specific contact" << std::endl;
-    //         break;
-    //     }
-    //     else if (str.compare("EXIT") == 0)
-    //     {
-    //         std::cout << "quits" << std::endl;
-    //         break;
-    //     }
-    //     else
-    //     {
-    //         std::cout << "Invalid Command" << std::endl;
-    //         enterCommand(str);           
-    //     }
-    // }
-    
     return (0);
 }
