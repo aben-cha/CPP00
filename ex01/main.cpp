@@ -6,14 +6,13 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:18:51 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/15 00:33:55 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/16 00:39:29 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 #include <string>
-
 #include <iostream>
 
 void enterCommand(std::string& str)
@@ -22,105 +21,47 @@ void enterCommand(std::string& str)
     std::cin >> str;
 }
 
-void dispalyContact(Contact& contact, int index)
+int enterFields(Contact& contact, int flag, int& index)
 {
-    std::cout << "index          |          firstName          |          lastName          |          nickName" 
-              << std::endl
-              << index << "              |          "  
-              << contact.firstName << "          |          " 
-              << contact.lastName << "          |          "
-              << contact.nickName
-              << std::endl;
-}
-void searchContact(PhoneBook& phonebook, Contact contact, int index)
-{
-    int flag;
-
-
-    flag = 0;
-    if (index < 0 || index > 7)
-            return ;
-    while (phonebook.contactCount--)
-    {
-        if (phonebook.contactCount == index)
-        {
-            if (!phonebook.contact[phonebook.contactCount].firstName.compare(contact.firstName)
-                || !phonebook.contact[phonebook.contactCount].lastName.compare(contact.lastName)
-                || !phonebook.contact[phonebook.contactCount].nickName.compare(contact.nickName))
-                    flag = 1;
-        }
-        if (flag)
-        {
-            dispalyContact(phonebook.contact[phonebook.contactCount], index);
-            return ;
-        }
-    }
-    if (!flag)
-    {
-        std::cout << "the contact didn't exist." << std::endl;
-        return ;
-    }
-}
-
-
-void enterFields(Contact& contact, int flag, int& index)
-{
+    std::string str;
     if (flag)
     {
         std::cout << "Index          : ";
         std::cin >> index;
-    }
-    if (index < 0 || index > 7)
-    {
-        std::cout << "the index is out of range." << std::endl;
-        return ;
+        if (!(index >= 0 && index <= 7))
+        {
+            std::cout << "the index is out of range." << std::endl;
+            return (1);
+        }
     }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "First Name     : ";
-    getline(std::cin, contact.firstName);
+    getline(std::cin, str);
+    contact.setFirstName(str);
     std::cout << "Last Name      : ";
-    getline(std::cin, contact.lastName);
+    getline(std::cin, str);
+    contact.setLastName(str);
     std::cout << "nickName       : ";
-    getline(std::cin, contact.nickName);
+    getline(std::cin, str);
+    contact.setNickName(str);
     if (!flag)
     {
         std::cout << "Phone Number   : ";
-        getline(std::cin, contact.phoneNumber);
+        getline(std::cin, str);
+        contact.setPhoneNumber(str);
         std::cout << "Darkest Secret : ";
-        getline(std::cin, contact.darkestSecret);   
+        getline(std::cin, str);
+        contact.setDarkestSecret(str);   
     }
+    return (0);
 }
-
-void saveContact(PhoneBook& phonebook, Contact& contact)
-{
-    if (contact.firstName.empty() || contact.lastName.empty()
-        || contact.nickName.empty() || contact.phoneNumber.empty()
-        || contact.darkestSecret.empty())
-    {
-        std::cout << "A saved contact can’t have empty fields." << std::endl;
-        return ;
-    }
-    phonebook.contact[phonebook.contactCount++] = contact;
-    std::cout << "User added successfully." << std::endl;
-}
-
-void displayContacts(PhoneBook& phonebook)
-{
-    while (phonebook.contactCount--)
-    {
-        std::cout << phonebook.contactCount << "          |          "
-        << phonebook.contact[phonebook.contactCount].firstName << "          |          "
-        << phonebook.contact[phonebook.contactCount].lastName << "          |          "
-        << phonebook.contact[phonebook.contactCount].nickName << std::endl;
-    } 
-}
-
 
 int main()
 {
     int         index;
     std::string str;
     PhoneBook phonebook;
+    Contact contact;
     
     index = 0;
     enterCommand(str);
@@ -128,16 +69,15 @@ int main()
     {
         if (str.compare("ADD") == 0)
         {
-            std::cout << "contact number : " << phonebook.contactCount + 1 << std::endl;
-            enterFields(phonebook.contact[phonebook.contactCount], 0, index);
-            saveContact(phonebook, phonebook.contact[phonebook.contactCount]);
-            std::cout << std::endl;
+            std::cout << "contact number : " << phonebook.getContactCount() << std::endl;
+            enterFields(contact, 0, index);
+            phonebook.saveUser(contact);
         }
         else if (str.compare("SEARCH") == 0)
         {
-            displayContacts(phonebook);
-            enterFields(phonebook.contact[phonebook.contactCount], 1, index);
-            searchContact(phonebook, phonebook.contact[phonebook.contactCount], index);
+            phonebook.displayContacts();
+            if (!enterFields(contact, 1, index))
+                phonebook.searchContact(contact, index);
         }
         else if (str.compare("EXIT") == 0)
             break ;
@@ -145,3 +85,5 @@ int main()
     }
     return (0);
 }
+
+

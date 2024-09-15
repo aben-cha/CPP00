@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:16:26 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/14 23:37:07 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/15 21:40:10 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <string>
 
 class Contact {
-    public:
+    private:
         std::string firstName;
         std::string lastName;
         std::string nickName;
@@ -24,13 +24,22 @@ class Contact {
         std::string darkestSecret;
 
     public:
-        Contact(std::string firstname, 
-                std::string lastname, 
-                std::string nickName, 
-                std::string phoneNumber, 
-                std::string darkestsecret);
-        Contact();
-        ~Contact();
+        // Contact();
+        // ~Contact();
+        
+        //setters
+        void setFirstName(std::string);
+        void setLastName(std::string);
+        void setNickName(std::string);
+        void setPhoneNumber(std::string);
+        void setDarkestSecret(std::string);
+
+        // getters
+        std::string getFirstName();
+        std::string getLastName();
+        std::string getNickName();
+        std::string getPhoneNumber();
+        std::string getDarkestSecret();
 };
 
 #endif
