@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:18:51 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/16 16:41:16 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:17:21 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int main()
     Contact     contact;
     PhoneBook   phonebook;
     
-    enterCommand(str);
     while (1)
     {
+        enterCommand(str);
         if (str.compare("ADD") == 0)
         {
             std::cout << "contact number : " << phonebook.getContactCount() << std::endl;
@@ -82,8 +82,7 @@ int main()
         else if (str.compare("EXIT") == 0)
             break ;
         else
-            std::cout << "the input is discarded." << std::endl;
-        enterCommand(str);
+            std::cout << "Invalid Command, try again." << std::endl;
     }
     return (0);
 }
