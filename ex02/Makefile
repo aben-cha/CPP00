@@ -1,7 +1,7 @@
-NAME= phonebook
+NAME= account
 CPP= c++
 CFLAGS= -Wall -Wextra -Werror -std=c++98 -fsanitize=address # delete -std
-SRC= main.cpp PhoneBook.cpp Contact.cpp
+SRC= tests.cpp Account.cpp
 OBJ= $(SRC:%.cpp=%.o)
 
 all: $(NAME)
@@ -9,7 +9,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CPP) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%o: %.cpp PhoneBook.hpp Contact.hpp
+%o: %.cpp
 	$(CPP) $(CFLAGS) -c $< -o $@
 
 clean:
