@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:16:42 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/15 23:39:59 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:50:45 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ class PhoneBook {
         void setContactCount(int);
         int  getContactCount();
         void saveUser(Contact contact);
-        void dispalyContact(Contact contact, int index);
+        void dispalyContact(Contact contact, std::string index);
         void displayContacts();
-        void searchContact(Contact contact, int index);
+        void searchContact(Contact contact, std::string index);
 };
 
 

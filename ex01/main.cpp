@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:18:51 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/16 00:39:29 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:41:16 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,27 @@
 #include <string>
 #include <iostream>
 
+
 void enterCommand(std::string& str)
 {
-    std::cout << "Enter one of three commands bellow : [ADD, SEARCH, EXIT] : ";
+    std::cout << "Enter one of three commands bellow [ADD, SEARCH, EXIT] : ";
     std::cin >> str;
 }
 
-int enterFields(Contact& contact, int flag, int& index)
+int enterFields(Contact& contact, int flag, std::string& index)
 {
     std::string str;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (flag)
     {
         std::cout << "Index          : ";
-        std::cin >> index;
-        if (!(index >= 0 && index <= 7))
+        getline(std::cin, index);
+        if (index.length() > 1 || (!(index[0] >= '0' && index[0] <= '9')))
         {
             std::cout << "the index is out of range." << std::endl;
             return (1);
         }
     }
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "First Name     : ";
     getline(std::cin, str);
     contact.setFirstName(str);
@@ -58,12 +59,11 @@ int enterFields(Contact& contact, int flag, int& index)
 
 int main()
 {
-    int         index;
+    std::string index;
     std::string str;
-    PhoneBook phonebook;
-    Contact contact;
+    Contact     contact;
+    PhoneBook   phonebook;
     
-    index = 0;
     enterCommand(str);
     while (1)
     {
@@ -81,6 +81,8 @@ int main()
         }
         else if (str.compare("EXIT") == 0)
             break ;
+        else
+            std::cout << "the input is discarded." << std::endl;
         enterCommand(str);
     }
     return (0);

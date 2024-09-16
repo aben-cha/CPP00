@@ -6,17 +6,16 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:15:42 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/16 00:44:29 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:34:04 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "PhoneBook.hpp"
-#include <iomanip>      // std::setw
+#include <iomanip>
 
 PhoneBook::PhoneBook() {
     this->contactCount = 0;
-    // std::cout << "Constructor phonebook." << std::endl;
 }
 
 void PhoneBook::setContactCount(int contactCount) {
@@ -27,16 +26,17 @@ int  PhoneBook::getContactCount() {
     return contactCount;
 }
 
-void print_str(std::string str, int flag)
-{
+void print_str(std::string str, int flag) {
     if (str.length() > 10)
         std::cout << str.substr(0, 9) << ".";
+    else if (str.length() == 10)
+        std::cout << str;
     else
         std::cout << std::setw(10) << str;
-    if(!flag)
-        std::cout << std::endl;
-    if (flag == 1)
+    if (flag)
         std::cout << "|";
+    if (!flag)
+        std::cout << std::endl;
 }
 
 void PhoneBook::saveUser(Contact contact) {
@@ -47,20 +47,14 @@ void PhoneBook::saveUser(Contact contact) {
         std::cout << "A saved contact can’t have empty fields." << std::endl;
         return ;
     }
-    if (contactCount < 0 || contactCount > 8)
-    {
-        std::cout << "the index is out of range.";
-        return ;
-    }
     if (contactCount == 8)
         this->contact[--contactCount] = contact;
     this->contact[contactCount++] = contact;
     std::cout << "User added successfully." << std::endl;
 }
 
-void PhoneBook::dispalyContact(Contact contact, int index)
-{
-    std::cout << index << "|"; 
+void PhoneBook::dispalyContact(Contact contact, std::string index) {
+    print_str(index, 1);
     print_str(contact.getFirstName(), 1);
     print_str(contact.getLastName(), 1);
     print_str(contact.getNickName(), 0);
@@ -72,28 +66,26 @@ void PhoneBook::displayContacts() {
     i = 0;
     while (i < contactCount)
     {
-        std::cout << i << "|           "
-        << contact[i].getFirstName() << "|           "
-        << contact[i].getLastName() << "|           "
-        << contact[i].getNickName() << std::endl;
+        dispalyContact(contact[i], std::to_string(i));
         i++;
     } 
 }
 
-void PhoneBook::searchContact(Contact contact, int index)
-{
+void PhoneBook::searchContact(Contact contact, std::string index) {
     int flag;
     int i;
+    int indexAsInt;
     
     i = 0;
     flag = 0;
+    indexAsInt = index[0] - '0';
     while (i < contactCount)
     {
-        if (i == index)
+        if (i == indexAsInt)
         {
             if (!this->contact[i].getFirstName().compare(contact.getFirstName())
-                || !this->contact[i].getLastName().compare(contact.getLastName())
-                || !this->contact[i].getNickName().compare(contact.getNickName()))
+                && !this->contact[i].getLastName().compare(contact.getLastName())
+                && !this->contact[i].getNickName().compare(contact.getNickName()))
                 flag = 1;
         }
         if (flag)
