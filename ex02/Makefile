@@ -1,7 +1,7 @@
 NAME= account
 CPP= c++
 CFLAGS= -Wall -Wextra -Werror -std=c++98 -fsanitize=address # delete -std
-SRC= tests.cpp Account.cpp
+SRC= tests.cpp Account.cpp 
 OBJ= $(SRC:%.cpp=%.o)
 
 all: $(NAME)
@@ -9,7 +9,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CPP) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%o: %.cpp
+%o: %.cpp Account.hpp
 	$(CPP) $(CFLAGS) -c $< -o $@
 
 clean:
