@@ -61,3 +61,21 @@
 * when we create an objet in c++ we have to go through these steps : 
   1 - constructing the object that means allocating some memory.
   2 - assiging some member variables
+
+
+========================(static member function)==============================
+* when we havee static member function
+  ==> in the main the best practise we use:
+    ClassName::nameOfStaticMemberFunction()
+  ==> instead of ClassName c;
+      c.nameOfStaticMemberFunction();
+* static functions can't update instance variables, so there's 
+  no point in ever making them const
+* this-> keyword is a pointer to the object instance 
+* const : does on accessors they prevent the function from being able to  
+  update variables of the class
+
+========================(Friends oc classes)==============================
+* Friends can access a class's private class
+* a friend of a class is just some entity that can directly access
+  your private stuff without having to go through the public interface

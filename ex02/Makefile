@@ -1,6 +1,6 @@
 NAME= account
 CPP= c++
-CFLAGS= -Wall -Wextra -Werror -std=c++98 -fsanitize=address # delete -std
+CFLAGS= -Wall -Wextra -Werror
 SRC= tests.cpp Account.cpp 
 OBJ= $(SRC:%.cpp=%.o)
 
