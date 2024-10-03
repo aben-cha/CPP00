@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   Megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:29:44 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/17 23:21:25 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:27:07 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void toUpperCase(std::string str)
 {
     int i;
+    int size;
     char c;
     
     i = -1;
-    while (++i < str.size())
+    size = str.size();
+    while (++i < size)
     {
         c = toupper(str[i]);
         std::cout << c;
