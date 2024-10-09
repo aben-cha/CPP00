@@ -6,13 +6,12 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 19:05:09 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/18 18:03:48 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:59:08 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Account.hpp"
 #include <iostream>
-#include <ctime>
 
 
 int Account::_nbAccounts = 0;
@@ -45,9 +44,8 @@ void	Account::displayAccountsInfos( void ) {
               << std::endl;
 }
 
-Account::Account( int initial_deposit ) {
+Account::Account( int initial_deposit ) : _amount(initial_deposit) {
     _accountIndex = _nbAccounts++;
-    _amount = initial_deposit;
     _nbDeposits = 0;
     _nbWithdrawals = 0;
     _totalAmount += _amount;
@@ -116,7 +114,7 @@ void    Account::displayStatus( void ) const {
               << ";amount:"       << _amount 
               << ";deposits:"     << _nbDeposits
               << ";withdrawals:" << _nbWithdrawals;
-    std::cout << "\n";
+    std::cout << std::endl;
 }
 
 void	Account::_displayTimestamp( void ) {
@@ -127,5 +125,5 @@ void	Account::_displayTimestamp( void ) {
     std::tm* localTime = std::localtime(&currentTime);
     
     std::strftime(buffer, sizeof(buffer), "%Y%m%d_%H%M%S", localTime);
-    std::cout << "[" << buffer << "] ";    
+    std::cout << "[" << buffer << "] ";
 }

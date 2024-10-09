@@ -6,7 +6,7 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:16:26 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/18 18:46:34 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:20:44 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define CONTACT_HPP
 
 #include <string>
+#include <iostream>
 
 class Contact {
     private:
@@ -35,7 +36,9 @@ class Contact {
         std::string getDarkestSecret();
 };
 
-void enterCommand(std::string& str);
-int enterFields(Contact& contact, int flag, std::string& index);
+int enterFields(Contact& contact);
+int isValidIndex(std::string& index);
+int enterCommand(std::string line, std::string& index);
+int readInput(std::string& str, std::string enter, Contact& contact, int flag);
 
 #endif

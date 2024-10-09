@@ -1,6 +1,6 @@
 NAME= megaphone
 CPP= c++
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -std=c++98
 SRC= megaphone.cpp
 OBJ= $(SRC:%.cpp=%.o)
 
@@ -9,7 +9,7 @@ all: $(NAME)
 $(NAME) : $(OBJ)
 	$(CPP) $(CFLAGS) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.o: %.cpp 
 	$(CPP) $(CFLAGS) -c $< -o $@
 
 clean:

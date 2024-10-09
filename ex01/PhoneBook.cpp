@@ -6,16 +6,16 @@
 /*   By: aben-cha <aben-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:15:42 by aben-cha          #+#    #+#             */
-/*   Updated: 2024/09/16 18:06:48 by aben-cha         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:54:30 by aben-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include "PhoneBook.hpp"
 #include <iomanip>
 
 PhoneBook::PhoneBook() {
     this->contactCount = 0;
+    this->oldestContact = 0;
 }
 
 void PhoneBook::setContactCount(int contactCount) {
@@ -27,6 +27,15 @@ int  PhoneBook::getContactCount() {
 }
 
 void print_str(std::string str, int flag) {
+    int i;
+    
+    i = 0;
+    while (str[i]) 
+    {
+        if (str[i] == '\t')
+            str[i] = ' ';
+        i++;
+    }
     if (str.length() > 10)
         std::cout << str.substr(0, 9) << ".";
     else if (str.length() == 10)
@@ -40,57 +49,64 @@ void print_str(std::string str, int flag) {
 }
 
 void PhoneBook::saveUser(Contact contact) {
-    if (contact.getFirstName().empty() || contact.getLastName().empty()
-        || contact.getNickName().empty() || contact.getPhoneNumber().empty()
-        || contact.getDarkestSecret().empty())
+    if (contactCount >= 8)
     {
-        std::cout << "A saved contact can’t have empty fields." << std::endl;
-        return ;
+        if(oldestContact >= 8)
+            oldestContact = 0;
+        this->contact[oldestContact++] = contact;
     }
-    if (contactCount == 8)
-        this->contact[--contactCount] = contact;
-    this->contact[contactCount++] = contact;
+    else
+        this->contact[contactCount++] = contact;
     std::cout << "User added successfully." << std::endl;
 }
 
-void PhoneBook::dispalyContact(Contact contact, std::string index) {
-    print_str(index, 1);
-    print_str(contact.getFirstName(), 1);
-    print_str(contact.getLastName(), 1);
-    print_str(contact.getNickName(), 0);
+void PhoneBook::dispalyContact(Contact contactInfo, int index, int flag) {
+    if (!flag) {
+        std::cout << std::setw(10) << index << "|";
+        print_str(contactInfo.getFirstName(), 1);
+        print_str(contactInfo.getLastName(), 1);
+        print_str(contactInfo.getNickName(), 0);
+    }
+    else {
+    std::cout << "Contact Information:" << std::endl
+              << "First Name     : " << contact[index].getFirstName() << std::endl
+              << "Last Name      : " << contact[index].getLastName() << std::endl
+              << "Nickname       : " << contact[index].getNickName() << std::endl
+              << "Phone Number   : " << contact[index].getPhoneNumber() << std::endl
+              << "Darkest Secret : " << contact[index].getDarkestSecret() << std::endl;
+    }
+
 }
 
-void PhoneBook::displayContacts() {
+int PhoneBook::displayContacts() {
     int i;
 
     i = 0;
     while (i < contactCount)
     {
-        dispalyContact(contact[i], std::to_string(i));
+        dispalyContact(contact[i], i, 0);
         i++;
-    } 
+    }
+    if (i == 0)
+    {
+        std::cout << "No Contact Exist." << std::endl;
+        return 1;
+    }
+    return 0;
 }
 
-void PhoneBook::searchContact(Contact contact, std::string index) {
+void PhoneBook::searchContact(Contact contact, int index) {
     int flag;
     int i;
-    int indexAsInt;
     
     i = 0;
     flag = 0;
-    indexAsInt = index[0] - '0';
     while (i < contactCount)
     {
-        if (i == indexAsInt)
+        if (i == index)
         {
-            if (!this->contact[i].getFirstName().compare(contact.getFirstName())
-                && !this->contact[i].getLastName().compare(contact.getLastName())
-                && !this->contact[i].getNickName().compare(contact.getNickName()))
-                flag = 1;
-        }
-        if (flag)
-        {
-            dispalyContact(contact, index);
+            flag = 1;
+            dispalyContact(contact, i, 1);
             return ;
         }
         i++;
@@ -98,3 +114,4 @@ void PhoneBook::searchContact(Contact contact, std::string index) {
     if (!flag)
         std::cout << "the contact didn't exist." << std::endl;
 }
+    
